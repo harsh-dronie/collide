@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collide - Onboarding</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .slide-in {
+            animation: slide-in 0.5s forwards;
+        }
+
+        .slide-out {
+            animation: slide-out 0.5s forwards;
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slide-out {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+        }
+
+        .custom-input {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+        }
+
+        /* Custom dropdown menu styles */
+        .custom-select {
+            appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem;
+            color: white;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .custom-select:hover,
+        .custom-select:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .custom-select::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid white;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .custom-select option {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .custom-select option:hover {
+            background-color: rgba(255, 105, 180, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center h-screen text-white">
+
+    <div id="question-container" class="max-w-lg w-full p-8 rounded-lg text-center bg-opacity-80 backdrop-blur-sm">
+
+        <!-- Logo -->
+        <div class="logo mb-8">
+            <a href="#" class="text-4xl font-extrabold tracking-wider text-white">C🩷llide</a>
+        </div>
+
+        <!-- Age Question -->
+    <div id="question1" class="question slide-in">
+        <h2 class="text-3xl font-semibold mb-6">What is your age?</h2>
+        <input type="number" id="age" class="custom-input border border-transparent focus:border-pink-500 bg-transparent text-white p-3 rounded-lg w-full mb-4" placeholder="Enter your age" min="15" max="75" required>
+        <p id="age-error" class="text-yellow-500 hidden">Please enter an age between 15 and 75.</p>
+        <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="validateAge()">Next</button>
+    </div>
+
+
+        <!-- Gender Question -->
+        <div id="question2" class="question hidden">
+            <h2 class="text-3xl font-semibold mb-6">What is your gender?</h2>
+            <select id="gender" class="custom-select w-full p-3 mb-4 rounded-lg text-gray-700 focus:ring-pink-500">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+            <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="nextQuestion(2)">Next</button>
+        </div>
+
+        <!-- Preferred Partner's Gender Question -->
+        <div id="question3" class="question hidden">
+            <h2 class="text-3xl font-semibold mb-6">Who are you interested in?</h2>
+            <select id="partner-gender" class="custom-select w-full p-3 mb-4 rounded-lg text-gray-700 focus:ring-pink-500">
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="everyone">Everyone</option>
+            </select>
+            <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="nextQuestion(3)">Next</button>
+        </div>
+
+        <!-- Location Question -->
+        <div id="question4" class="question hidden">
+            <h2 class="text-3xl font-semibold mb-6">Where do you live?</h2>
+            <input type="text" id="location" class="custom-input border border-transparent focus:border-pink-500 bg-transparent text-white p-3 rounded-lg w-full mb-4" placeholder="Enter your location">
+            <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="nextQuestion(4)">Next</button>
+        </div>
+
+        <!-- Relationship Goals Question -->
+        <div id="question5" class="question hidden">
+            <h2 class="text-3xl font-semibold mb-6">What are you looking for?</h2>
+            <select id="relationship-goals" class="custom-select w-full p-3 mb-4 rounded-lg text-gray-700 focus:ring-pink-500">
+                <option value="casual-dating">Casual dating</option>
+                <option value="serious-relationship">Serious relationship</option>
+                <option value="friendship">Friendship</option>
+                <option value="marriage">Marriage</option>
+            </select>
+            <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="nextQuestion(5)">Next</button>
+        </div>
+
+        <!-- Love Language Question -->
+        <div id="question6" class="question hidden">
+            <h2 class="text-3xl font-semibold mb-6">What is your primary love language?</h2>
+            <select id="love-language" class="custom-select w-full p-3 mb-4 rounded-lg text-gray-700 focus:ring-pink-500">
+                <option value="words-of-affirmation">Words of Affirmation</option>
+                <option value="acts-of-service">Acts of Service</option>
+                <option value="receiving-gifts">Receiving Gifts</option>
+                <option value="quality-time">Quality Time</option>
+                <option value="physical-touch">Physical Touch</option>
+            </select>
+            <button class="bg-pink-600 text-white py-2 px-6 rounded-lg shadow-lg hover:bg-pink-700 transition duration-300" onclick="submitAnswers()">Submit</button>
+        </div>
+
+    </div>
+
+    <script>
+        function validateAge() {
+    const ageInput = document.getElementById('age');
+    const ageError = document.getElementById('age-error');
+    const age = ageInput.value;
+
+    if (age < 15 || age > 75 || isNaN(age)) {
+        // Show error message
+        ageError.classList.remove('hidden');
+    } else {
+        // Hide error message and proceed to the next question
+        ageError.classList.add('hidden');
+        nextQuestion(1);
+    }
+}
+
+        function nextQuestion(current) {
+            // Slide out current question
+            const currentQuestion = document.getElementById('question' + current);
+            currentQuestion.classList.add('slide-out');
+
+            // After slide out, hide it and show the next question
+            setTimeout(() => {
+                currentQuestion.classList.add('hidden');
+                currentQuestion.classList.remove('slide-out');
+
+                const nextQuestion = document.getElementById('question' + (current + 1));
+                nextQuestion.classList.remove('hidden');
+                nextQuestion.classList.add('slide-in');
+            }, 500); // Match with slide-out duration
+        }
+
+        function submitAnswers() {
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+            const partnerGender = document.getElementById('partner-gender').value;
+            const location = document.getElementById('location').value;
+            const relationshipGoals = document.getElementById('relationship-goals').value;
+            const loveLanguage = document.getElementById('love-language').value;
+
+            // Save or send the data
+            console.log({
+                age,
+                gender,
+                partnerGender,
+                location,
+                relationshipGoals,
+                loveLanguage
+            });
+
+            // Redirect to the next page or home page
+            window.location.href = "home.html";
+        }
+    </script>
+
+</body>
+
+</html>
